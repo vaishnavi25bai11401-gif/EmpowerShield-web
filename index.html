@@ -25,5 +25,35 @@
         });
       }
     </script>
+  <!-- Firebase Core & Firestore SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // Your Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7b4eJ7LP_XwYEdNihz_1MYrEvwZ7kIE4",
+    authDomain: "empowershield-web.firebaseapp.com",
+    projectId: "empowershield-web",
+    storageBucket: "empowershield-web.firebasestorage.app",
+    messagingSenderId: "554330822106",
+    appId: "1:554330822106:web:3fie9c9e2f0dbc1269dce3",
+    measurementId: "G-KM3LCR41ZT"
+  };
+
+  // Initialize Firebase and Firestore
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Helper function to write data (SOS alerts, logs, etc.) to Firestore
+  function saveIncident(incidentData) {
+    db.collection("incidents").add({
+      ...incidentData,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then((docRef) => console.log("Incident saved with ID:", docRef.id))
+    .catch((error) => console.error("Error saving incident:", error));
+  }
+</script>
   </body>
 </html>
